@@ -11,7 +11,7 @@ change the kafka.bootstrap.servers property to point to your kafka broker
 
 docker build -f src/main/Docker/Dockerfile.jvm -t diogorlopes/avaasie .
 
-docker run -i --rm -p 8088:8088 diogorlopes/avaasie
+docker run -i --rm -p 8080:8080 diogorlopes/avaasie
 
 docker restart diogorlopes/avaasie
 
