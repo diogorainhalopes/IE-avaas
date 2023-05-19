@@ -12,7 +12,7 @@ public class Purchase {
 
 	private int id;
 	private int userId;
-	private Integer avId;
+	private int avId;
 
 	public Purchase() {
 		// Does nothing

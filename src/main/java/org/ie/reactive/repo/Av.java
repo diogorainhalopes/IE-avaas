@@ -8,15 +8,35 @@ import io.vertx.mutiny.sqlclient.Tuple;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Av {
 
-	public int id;
-	public String brand;
-	public String model;
+	@JsonProperty("id")
+	private int id;
+
+	@JsonProperty("brand")
+	private String brand;
+
+	@JsonProperty("model")
+	private String model;
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
 
 	public Av() {
 		// Does nothing
@@ -41,11 +61,6 @@ public class Av {
 		return model;
 	}
 
-	@Override
-	public String toString() {
-		return "{ \"av\": { \"id\": " + id + ", \"brand\": " + brand + ", \"model\": " + model + "} }";
-	}
-
 	public String toJson() {
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {
@@ -54,7 +69,7 @@ public class Av {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "{ \"av\": { \"id\": " + id + ", \"brand\": " + brand + ", \"model\": " + model + "} }";
+		return ow.toString();
 	}
 
 	private static Av from(Row row) {

@@ -1,30 +1,57 @@
 package org.ie.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 public class AvResult {
 
+	@JsonProperty("TimeStamp")
 	private String timeStamp;
-	private String avId;
-	private String speed;
-	private String ictInfrastructure;
-	private String roadConditions;
-	private String security;
-	private String utilitarianism;
-	private String legitimacy;
-	private String socialResponsibility;
-	private String detection;
-	private String identification;
-	private String riskAnalysis;
-	private String reaction;
-	private String execution;
 
-	public AvResult() {
-		// Does nothing
-	}
+	@JsonProperty("AV_ID")
+	private String avId;
+
+	@JsonProperty("Speed")
+	private String speed;
+
+	@JsonProperty("ICT_Infrastructure")
+	private String ictInfrastructure;
+
+	@JsonProperty("RoadConditions")
+	private String roadConditions;
+
+	@JsonProperty("Security")
+	private String security;
+
+	@JsonProperty("Utilitarianism")
+	private String utilitarianism;
+
+	@JsonProperty("Legitimacy")
+	private String legitimacy;
+
+	@JsonProperty("SocialResponsibility")
+	private String socialResponsibility;
+
+	@JsonProperty("Detection")
+	private String detection;
+
+	@JsonProperty("Identification")
+	private String identification;
+
+	@JsonProperty("RiskAnalysis")
+	private String riskAnalysis;
+
+	@JsonProperty("Reaction")
+	private String reaction;
+
+	@JsonProperty("Execution")
+	private String execution;
 
 	public AvResult(String timeStamp, String avId, String speed, String ictInfrastructure, String roadConditions,
 			String security, String utilitarianism, String legitimacy, String socialResponsibility, String detection,
 			String identification, String riskAnalysis, String reaction, String execution) {
-		super();
 		this.timeStamp = timeStamp;
 		this.avId = avId;
 		this.speed = speed;
@@ -41,16 +68,19 @@ public class AvResult {
 		this.execution = execution;
 	}
 
-	@Override
-	public String toString() {
-		return "{ \"avResult\": { \"timeStamp\":" + timeStamp + ", \"avId\":" + avId + ", \"speed\":" + speed
-				+ ", \"ictInfrastructure\":"
-				+ ictInfrastructure + ", \"roadConditions\":" + roadConditions + ", \"security\":" + security
-				+ ", \"utilitarianism\":" + utilitarianism + ", \"legitimacy\":" + legitimacy
-				+ ", \"socialResponsibility\":"
-				+ socialResponsibility + ", \"detection\":" + detection + ", \"identification\":" + identification
-				+ ", \"riskAnalysis\":" + riskAnalysis + ", \"reaction\":" + reaction + ", \"execution\":" + execution
-				+ "} }";
+	public AvResult() {
+		// Does nothing
+	}
+
+	public String toJson() {
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try {
+			return ow.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ow.toString();
 	}
 
 	public String getTimeStamp() {

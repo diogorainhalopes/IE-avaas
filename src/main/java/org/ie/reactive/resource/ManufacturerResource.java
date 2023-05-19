@@ -17,7 +17,7 @@ import org.jboss.logging.annotations.Param;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
-@Path("manufacturer")
+@Path("av_manufacturer")
 public class ManufacturerResource {
 
 	@Inject
@@ -40,9 +40,9 @@ public class ManufacturerResource {
 	}
 
 	@POST
-	public Uni<Response> create(Manufacturer carManufacturer) {
-		return carManufacturer.save(client)
-				.onItem().transform(brand -> URI.create("/manufacturer/" + brand))
+	public Uni<Response> create(Manufacturer Manufacturer) {
+		return Manufacturer.save(client)
+				.onItem().transform(brand -> URI.create("/av_manufacturer/" + brand))
 				.onItem().transform(uri -> Response.created(uri).build());
 	}
 

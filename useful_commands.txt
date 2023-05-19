@@ -1,0 +1,27 @@
+
+
+change the quarkus.datasource properties to point to your database
+
+change the quarkus.http.port property to the port you want to use
+
+change the kafka.bootstrap.servers property to point to your kafka broker
+
+
+--- 
+
+docker build -f src/main/Docker/Dockerfile.jvm -t diogorlopes/avaasie .
+
+docker run -i --rm -p 8088:8088 diogorlopes/avaasie
+
+docker restart diogorlopes/avaasie
+
+sudo docker pull diogorlopes/avaasie:latest
+
+---
+
+In order to connect the RDS database to the EC2 instance, you need to create a security group for the RDS instance and add the EC2 instance to the security group and vice versa.
+Theres already that option directly in the amazon dashboard. 
+
+mysql -h avaas-database-1.cienya3ax72e.us-east-1.rds.amazonaws.com -P 3306 -u root -p
+
+---

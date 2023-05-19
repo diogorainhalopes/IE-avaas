@@ -9,7 +9,7 @@ import io.vertx.mutiny.sqlclient.Tuple;
 
 public class Manufacturer {
 
-	public String brand;
+	private String brand;
 
 	public Manufacturer() {
 	}

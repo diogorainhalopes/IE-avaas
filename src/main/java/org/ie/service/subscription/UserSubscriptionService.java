@@ -34,7 +34,7 @@ public class UserSubscriptionService {
 						.entity("ERROR SUBSCRIBING\n"
 								+ "RULES:\n"
 								+ " -> Id > 0\n"
-								+ " -> Name length > 0 and < 50 characters\n"
+								+ " -> Name length > 0 and < 100 characters\n"
 								+ " -> Age > 18 and < 120\n")
 						.build());
 
@@ -42,7 +42,7 @@ public class UserSubscriptionService {
 
 	private boolean isValid(User user) {
 		return user.getId() > 0 &&
-				user.getName().length() > 0 && user.getName().length() <= 30 &&
+				user.getName().length() > 0 && user.getName().length() <= 100 &&
 				user.getAge() > 18;
 	}
 

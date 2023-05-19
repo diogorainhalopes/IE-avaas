@@ -5,9 +5,6 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.ie.reactive.repo.Av;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -19,10 +16,6 @@ public class AvProducer {
     Emitter<Record<Integer, String>> emitter;
 
     public void sendAvToKafka(Av av) {
-        List<String> brandAndModel = new ArrayList<>();
-        brandAndModel.add(av.brand);
-        brandAndModel.add(av.model);
-        emitter.send(Record.of(av.id, brandAndModel.toString()));
-        System.out.println(av.toJson());
+        emitter.send(Record.of(av.getId(), av.toJson()));
     }
 }

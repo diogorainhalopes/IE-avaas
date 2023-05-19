@@ -4,14 +4,12 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 
 import org.ie.model.AvEvent;
+import org.ie.model.wrappers.AvEventWrapper;
+
 import io.smallrye.reactive.messaging.kafka.Record;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.util.List;
 
 public class AvEventConsumer {
 
@@ -20,7 +18,7 @@ public class AvEventConsumer {
 	@Incoming("av-event")
 	public void receiveAv(Record<Integer, String> record) {
 
-		logger.infof("Consumed an AV_Event: Id = " + record.key() + "\n");
+		System.out.println("Consumed AV_Event: Id = " + record.key() + "from topic: av-event");
 
 		try {
 			convertJsonStringToAV_Event(record.value());
@@ -34,12 +32,13 @@ public class AvEventConsumer {
 	public void convertJsonStringToAV_Event(String jsonString) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			AvEvent avEvent = objectMapper.readValue(jsonString, AvEvent.class);
+			AvEventWrapper eventWrapper = objectMapper.readValue(jsonString, AvEventWrapper.class);
+			AvEvent avEvent = eventWrapper.getAvEvent();
+			// AvEvent avEvent = objectMapper.readValue(jsonString, AvEvent.class);
 			// Use the avEvent object as needed
-			System.out.println(avEvent.toString());
+			System.out.println(avEvent.toJson());
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

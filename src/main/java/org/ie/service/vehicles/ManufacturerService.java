@@ -25,26 +25,27 @@ public class ManufacturerService {
 	@Path("/enter/av")
 	public Uni<Response> create(Av av) {
 
-		if (!isAvValid(av)) {
-			String msg = "ERROR ADDING AV\n"
-					+ "RULES:\n"
-					+ " -> AV id > 0\n"
-					+ " -> Brand length > 0 and 30 characters\n"
-					+ " -> Model length 0 and 30 characters\n";
-			return Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED).entity(msg).build());
-		}
+		return isAvValid(av)
+				? av.save(client)
+						.onItem().transform(id -> URI.create("/manufacturer/service/enter/av/" + id))
+						.onItem().transform(uri -> Response.created(uri).build())
+						.onFailure()
+						.recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
+								.entity("ERROR INVALID AV\n")
+								.build()))
+				: Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
+						.entity("ERROR ADDING AV\n"
+								+ "RULES:\n"
+								+ " -> AV id > 0\n"
+								+ " -> Brand length > 0 and 100 characters\n"
+								+ " -> Model length > 0 and 100 characters\n")
+						.build());
 
-		return av.save(client)
-				.onItem().transform(id -> URI.create("/manufacturer/service/enter/av/" + id))
-				.onItem().transform(uri -> Response.created(uri).build())
-				.onFailure().recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
-						.entity("ERROR INVALID AV\n")
-						.build()));
 	}
 
 	private boolean isAvValid(Av av) {
-		return av.getId() > 0 && av.getBrand().length() > 0 && av.getBrand().length() <= 30
-				&& av.getModel().length() > 0 && av.getModel().length() <= 30;
+		return av.getId() > 0 && av.getBrand().length() > 0 && av.getBrand().length() <= 100
+				&& av.getModel().length() > 0 && av.getModel().length() <= 100;
 	}
 
 	@DELETE

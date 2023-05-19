@@ -1,11 +1,10 @@
 package org.ie.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class AvEvent {
 
 	@JsonProperty("TimeStamp")
@@ -74,16 +73,15 @@ public class AvEvent {
 		this.averageConsumptionLevel = averageConsumptionLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "{ \"AV_Event\": { \"TimeStamp\":" + timeStamp + ", \"AV_ID\":" + avId + ", \"Speed\":" + speed
-				+ ", \"BatteryLevel\":"
-				+ batteryLevel + ", \"DriverTirenessLevel\":" + driverTirenessLevel + ", \"Location\":" + location
-				+ ", \"EnvironmentalLightning\":" + environmentalLightning + ", \"RainConditions\":" + rainConditions
-				+ ", \"FogConditions\":" + fogConditions + ", \"TractionWheelsLevel\":" + tractionWheelsLevel
-				+ ", \"TrafficLight\":" + trafficLight + ", \"ObstacleProximity\":" + obstacleProximity
-				+ ", \"PedestrianProximity\":" + pedestrianProximity + ", \"averageConsumptionLevel\":"
-				+ averageConsumptionLevel + "} }";
+	public String toJson() {
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try {
+			return ow.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ow.toString();
 	}
 
 	public String getTimeStamp() {

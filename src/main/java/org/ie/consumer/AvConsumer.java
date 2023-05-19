@@ -10,9 +10,7 @@ public class AvConsumer {
 
 	@Incoming("av-in")
 	public void receiveAv(Record<Integer, String> record) {
-		// TODO: 2021-10-20T16:00:00.000Z: 1. Add code to parse the JSON string into an
-		// Av object.
-
-		System.out.println(record.toString());
+		System.out.println("Consumed AV: Id = " + record.key() + " from topic: av-in");
+		System.out.println(record.value());
 	}
 }

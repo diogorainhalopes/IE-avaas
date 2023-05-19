@@ -21,18 +21,20 @@ public class PurchaseService {
 	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
 	@POST
-	@Path("/av/buy")
+	@Path("/buy")
 	public Uni<Response> buyAV(Purchase purchase) {
 
-		return isPurchaseValid(purchase) ? purchase.save(client)
-				.onItem().transform(id -> URI.create("/purchase/service/av/buy/" + id))
-				.onItem().transform(uri -> Response.created(uri).build())
-				.onFailure().recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
-						.entity("Error purchasing.\n"
-								+ "Verify if Purchase id already exists\n"
-								+ "Verify if User id exists\n"
-								+ "Verify if AV id exists\n")
-						.build()))
+		return isValid(purchase)
+				? purchase.save(client)
+						.onItem().transform(id -> URI.create("/purchase/service/buy/" + id))
+						.onItem().transform(uri -> Response.created(uri).build())
+						.onFailure()
+						.recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
+								.entity("Error purchasing.\n"
+										+ "Verify if Purchase id already exists\n"
+										+ "Verify if User id exists\n"
+										+ "Verify if AV id exists\n")
+								.build()))
 				: Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
 						.entity("ERROR PURCHASING\n"
 								+ "RULES:\n"
@@ -43,14 +45,14 @@ public class PurchaseService {
 
 	}
 
-	private boolean isPurchaseValid(Purchase purchase) {
+	private boolean isValid(Purchase purchase) {
 		return purchase.getId() > 0 &&
 				purchase.getAvId() > 0 &&
 				purchase.getUserId() > 0;
 	}
 
 	@PUT
-	@Path("/av/sell/{id}")
+	@Path("/sell/{id}")
 	public Uni<Response> sellAV(@Param Integer id) {
 		return Purchase.sellAV(client, id)
 				.onItem().transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT : Status.NOT_FOUND)

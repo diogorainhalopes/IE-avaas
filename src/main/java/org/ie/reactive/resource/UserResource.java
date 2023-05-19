@@ -38,34 +38,4 @@ public class UserResource {
 				.onItem().transform(ResponseBuilder::build);
 	}
 
-	@POST
-	public Uni<Response> create(User user) {
-		return user.save(client)
-				.onItem().transform(id -> URI.create("/user/" + id))
-				.onItem().transform(uri -> Response.created(uri).build());
-	}
-
-	@DELETE
-	@Path("{id}")
-	public Uni<Response> delete(@Param Integer id) {
-		return User.delete(client, id)
-				.onItem().transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT : Status.NOT_FOUND)
-				.onItem().transform(status -> Response.status(status).build());
-	}
-
-	@PUT
-	@Path("/name/{id}/{name}")
-	public Uni<Response> updateBrand(@Param Integer id, @Param String name) {
-		return User.update(client, id, name)
-				.onItem().transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT : Status.NOT_FOUND)
-				.onItem().transform(status -> Response.status(status).build());
-	}
-
-	@PUT
-	@Path("/age/{id}/{age}")
-	public Uni<Response> updateModel(@Param Integer id, @Param int age) {
-		return User.update(client, id, age)
-				.onItem().transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT : Status.NOT_FOUND)
-				.onItem().transform(status -> Response.status(status).build());
-	}
 }

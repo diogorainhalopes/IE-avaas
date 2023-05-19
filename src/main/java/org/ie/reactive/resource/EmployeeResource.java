@@ -6,7 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
@@ -31,9 +30,9 @@ public class EmployeeResource {
 	}
 
 	@GET
-	@Path("{userId}")
-	public Uni<Response> getSingle(@Param Integer userId) {
-		return Employee.findById(client, userId)
+	@Path("{eid}")
+	public Uni<Response> getSingle(@Param Integer eid) {
+		return Employee.findById(client, eid)
 				.onItem()
 				.transform(employee -> employee != null ? Response.ok(employee) : Response.status(Status.NOT_FOUND))
 				.onItem().transform(ResponseBuilder::build);
@@ -42,23 +41,15 @@ public class EmployeeResource {
 	@POST
 	public Uni<Response> create(Employee employee) {
 		return employee.save(client)
-				.onItem().transform(userId -> URI.create("/employee/" + userId))
+				.onItem().transform(eid -> URI.create("/employee/" + eid))
 				.onItem().transform(uri -> Response.created(uri).build());
 	}
 
 	@DELETE
-	@Path("{userId}")
-	public Uni<Response> delete(@Param Integer userId) {
-		return Employee.delete(client, userId)
-				.onItem().transform(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
-				.onItem().transform(status -> Response.status(status).build());
-	}
-
-	@PUT
-	@Path("/role/{userId}/{role}")
-	public Uni<Response> updateRole(@Param Integer userId, @Param String role) {
-		return Employee.updateRole(client, userId, role)
-				.onItem().transform(updated -> updated ? Status.NO_CONTENT : Status.NOT_FOUND)
+	@Path("{eid}")
+	public Uni<Response> delete(@Param Integer eid) {
+		return Employee.delete(client, eid)
+				.onItem().transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT : Status.NOT_FOUND)
 				.onItem().transform(status -> Response.status(status).build());
 	}
 
