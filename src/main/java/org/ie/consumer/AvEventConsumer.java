@@ -11,6 +11,12 @@ import io.smallrye.reactive.messaging.kafka.Record;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * The AvEventConsumer class is responsible for consuming AvEvent messages from
+ * the "av-event" Kafka topic. When a message is received, it converts the JSON
+ * string representation of the AvEvent into an AvEvent object and performs
+ * further processing as needed.
+ */
 public class AvEventConsumer {
 
 	final Logger logger = Logger.getLogger(AvEventConsumer.class);

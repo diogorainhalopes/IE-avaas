@@ -8,6 +8,9 @@ import io.vertx.mutiny.sqlclient.Tuple;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The User class represents a User object.
+ */
 public class User {
 
 	private int id;

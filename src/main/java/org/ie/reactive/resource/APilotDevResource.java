@@ -17,17 +17,31 @@ import org.jboss.logging.annotations.Param;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The APilotDevResource class represents the resource for APilotDev.
+ */
 @Path("apilot_dev")
 public class APilotDevResource {
     @Inject
     io.vertx.mutiny.mysqlclient.MySQLPool client;
 
+    /**
+     * Retrieves all APilotDev objects.
+     *
+     * @return a Multi of APilotDev objects
+     */
     @GET
     @Path("/all")
     public Multi<APilotDev> get() {
         return APilotDev.findAll(client);
     }
 
+    /**
+     * Retrieves a single APilotDev object by company name.
+     *
+     * @param company the company name
+     * @return a Uni of Response object
+     */
     @GET
     @Path("{company}")
     public Uni<Response> getSingle(@Param String company) {
@@ -38,6 +52,12 @@ public class APilotDevResource {
                 .onItem().transform(ResponseBuilder::build);
     }
 
+    /**
+     * Creates a new APilotDev object.
+     *
+     * @param apilotDev the APilotDev object to create
+     * @return a Uni of Response object
+     */
     @POST
     public Uni<Response> create(APilotDev apilotDev) {
         return apilotDev.save(client)
@@ -45,6 +65,12 @@ public class APilotDevResource {
                 .onItem().transform(uri -> Response.created(uri).build());
     }
 
+    /**
+     * Deletes an APilotDev object by company name.
+     *
+     * @param company the company name
+     * @return a Uni of Response object
+     */
     @DELETE
     @Path("{company}")
     public Uni<Response> delete(@Param String company) {

@@ -13,18 +13,32 @@ import org.jboss.logging.annotations.Param;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The PurchaseResource class represents the resource for Purchase.
+ */
 @Path("purchase")
 public class PurchaseResource {
 
 	@Inject
 	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
+	/**
+	 * Retrieves all Purchase objects.
+	 *
+	 * @return a Multi of Purchase objects
+	 */
 	@GET
 	@Path("/all")
 	public Multi<Purchase> get() {
 		return Purchase.findAll(client);
 	}
 
+	/**
+	 * Retrieves a single Purchase object by ID.
+	 *
+	 * @param id the ID of the Purchase object
+	 * @return a Uni of Response object
+	 */
 	@GET
 	@Path("{id}")
 	public Uni<Response> getSingle(@Param Integer id) {

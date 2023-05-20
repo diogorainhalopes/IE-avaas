@@ -14,6 +14,9 @@ import io.vertx.mutiny.sqlclient.Tuple;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The APilot class represents a APilot object.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class APilot {
 

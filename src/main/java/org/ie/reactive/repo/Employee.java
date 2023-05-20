@@ -7,6 +7,9 @@ import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
 
+/**
+ * The Employee class represents a Employee object.
+ */
 public class Employee {
 
 	public int eid;

@@ -1,18 +1,21 @@
 package org.ie.producer;
 
-import java.util.Properties;
-
-import org.apache.kafka.clients.producer.KafkaProducer;
-import io.smallrye.reactive.messaging.kafka.Record;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.protocol.types.Field.UUID;
 import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.ie.model.AvResult;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.ie.model.wrappers.AvResultWrapper;
 
+import io.smallrye.reactive.messaging.kafka.Record;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+/**
+ * The AvResultProducer class represents an object that is responsible for
+ * producing AvResultWrapper messages to a Kafka topic.
+ * 
+ * The AvResultProducer class provides a method to send AvResultWrapper objects
+ * to a Kafka topic using an Emitter.
+ */
+@ApplicationScoped
 public class AvResultProducer {
 
 	@Inject

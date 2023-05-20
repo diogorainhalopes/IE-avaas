@@ -8,6 +8,9 @@ import io.vertx.mutiny.sqlclient.Tuple;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The Purchase class represents a Purchase object.
+ */
 public class Purchase {
 
 	private int id;

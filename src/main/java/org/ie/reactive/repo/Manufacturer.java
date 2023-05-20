@@ -7,6 +7,9 @@ import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
 
+/**
+ * The Manufacturer class represents a Manufacturer object.
+ */
 public class Manufacturer {
 
 	private String brand;

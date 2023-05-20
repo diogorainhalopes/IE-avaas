@@ -14,6 +14,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+/**
+ * The Av class represents a Av object.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Av {
 

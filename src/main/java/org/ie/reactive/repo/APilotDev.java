@@ -1,19 +1,17 @@
 package org.ie.reactive.repo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.mysqlclient.MySQLPool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
 
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
+/**
+ * The APilotDev class represents a APilotDev object.
+ */
 public class APilotDev {
 
     @JsonProperty("company")

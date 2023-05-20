@@ -17,18 +17,32 @@ import org.jboss.logging.annotations.Param;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The EmployeeResource class represents the resource for Employee.
+ */
 @Path("employee")
 public class EmployeeResource {
 
 	@Inject
 	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
+	/**
+	 * Retrieves all Employee objects.
+	 *
+	 * @return a Multi of Employee objects
+	 */
 	@GET
 	@Path("/all")
 	public Multi<Employee> get() {
 		return Employee.findAll(client);
 	}
 
+	/**
+	 * Retrieves a single Employee object by ID.
+	 *
+	 * @param eid the ID of the Employee object
+	 * @return a Uni of Response object
+	 */
 	@GET
 	@Path("{eid}")
 	public Uni<Response> getSingle(@Param Integer eid) {
@@ -45,6 +59,12 @@ public class EmployeeResource {
 				.onItem().transform(uri -> Response.created(uri).build());
 	}
 
+	/**
+	 * Deletes an Employee object by ID.
+	 *
+	 * @param eid the ID of the Employee object to delete
+	 * @return a Uni of Response object
+	 */
 	@DELETE
 	@Path("{eid}")
 	public Uni<Response> delete(@Param Integer eid) {

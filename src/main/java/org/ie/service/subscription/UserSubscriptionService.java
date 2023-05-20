@@ -13,6 +13,10 @@ import org.jboss.logging.annotations.Param;
 
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The UserSubscriptionService class represents a RESTful web service for
+ * managing User objects.
+ */
 @Path("subscription")
 public class UserSubscriptionService {
 

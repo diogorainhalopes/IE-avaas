@@ -16,6 +16,10 @@ import org.jboss.logging.annotations.Param;
 
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The APilotDevService class represents a RESTful web service for managing
+ * APilot objects.
+ */
 @Path("apilot_dev/service")
 public class APilotDevService {
 
@@ -28,12 +32,14 @@ public class APilotDevService {
 
         return isValid(apilot)
                 ? apilot.save(client)
-                        .onItem().transform(id -> URI.create("/apilot_dev/service/enter/apilot/" + id))
+                        .onItem()
+                        .transform(id -> URI.create("/apilot_dev/service/enter/apilot/" + id))
                         .onItem().transform(uri -> Response.created(uri).build())
                         .onFailure()
-                        .recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
-                                .entity("ERROR INVALID APILOT\n")
-                                .build()))
+                        .recoverWithUni(Uni.createFrom()
+                                .item(() -> Response.status(Response.Status.ACCEPTED)
+                                        .entity("ERROR INVALID APILOT\n")
+                                        .build()))
                 : Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
                         .entity("ERROR ADDING APILOT\n"
                                 + "RULES:\n"
@@ -52,7 +58,9 @@ public class APilotDevService {
     @Path("remove/apilot/{id}")
     public Uni<Response> delete(@Param Integer id) {
         return Av.delete(client, id)
-                .onItem().transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem()
+                .transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT
+                        : Status.NOT_FOUND)
                 .onItem().transform(status -> Response.status(status).build());
     }
 
@@ -60,7 +68,9 @@ public class APilotDevService {
     @Path("/update/apilot/model/{id}/{model}")
     public Uni<Response> updateModel(@Param Integer id, @Param String model) {
         return Av.updateModel(client, id, model)
-                .onItem().transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem()
+                .transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT
+                        : Status.NOT_FOUND)
                 .onItem().transform(status -> Response.status(status).build());
     }
 

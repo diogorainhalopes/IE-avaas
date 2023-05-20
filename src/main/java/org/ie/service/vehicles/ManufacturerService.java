@@ -15,6 +15,10 @@ import org.jboss.logging.annotations.Param;
 
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The ManufacturerService class represents a RESTful web service for
+ * managing Av objects.
+ */
 @Path("manufacturer/service")
 public class ManufacturerService {
 

@@ -5,6 +5,11 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
+/**
+ * The AvResultConsumer class is an application-scoped class that listens for
+ * AvResult messages from the "av-result-in" Kafka topic. When a message is
+ * received, it prints the consumed AvResult details to the console.
+ */
 @ApplicationScoped
 public class AvResultConsumer {
 

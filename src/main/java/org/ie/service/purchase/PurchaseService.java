@@ -14,6 +14,10 @@ import org.jboss.logging.annotations.Param;
 
 import io.smallrye.mutiny.Uni;
 
+/**
+ * The PurchaseService class represents a RESTful web service for managing
+ * Purchase objects.
+ */
 @Path("purchase/service")
 public class PurchaseService {
 

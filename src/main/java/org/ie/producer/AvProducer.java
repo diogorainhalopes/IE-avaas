@@ -8,6 +8,13 @@ import org.ie.reactive.repo.Av;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+/**
+ * The AvProducer class represents an object that is responsible for
+ * producing Av messages to a Kafka topic.
+ * 
+ * The AvProducer class provides a method to send Av objects
+ * to a Kafka topic using an Emitter.
+ */
 @ApplicationScoped
 public class AvProducer {
 

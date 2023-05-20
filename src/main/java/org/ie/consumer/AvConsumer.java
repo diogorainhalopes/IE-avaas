@@ -5,6 +5,11 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
+/**
+ * The AvConsumer class is an application-scoped class that listens for
+ * Av messages from the "av-in" Kafka topic. When a message is
+ * received, it prints the consumed Av details to the console.
+ */
 @ApplicationScoped
 public class AvConsumer {
 
