@@ -2,6 +2,7 @@ package org.ie.consumer;
 
 import io.smallrye.reactive.messaging.kafka.Record;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.ie.model.wrappers.APilotWrapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -15,7 +16,8 @@ public class APilotConsumer {
 
     @Incoming("apilot-in")
     public void receiveAv(Record<Integer, Integer> record) {
-        System.out.println("Consumed APilot for Av with Id = " + record.key() + " from topic: apilot-in");
-        System.out.println(record.value());
+        APilotWrapper wrapper = new APilotWrapper(record.key(), record.value());
+        System.out.println(
+                "Consumed APilot to Av from topic apilot-in:\n" + wrapper.toJson() + "\n");
     }
 }

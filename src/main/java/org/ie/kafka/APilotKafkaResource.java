@@ -27,7 +27,7 @@ public class APilotKafkaResource {
     public Response send(APilotWrapper wrapper) {
         producer.sendAPilotToKafka(wrapper);
 
-        System.out.println("APilot KAFKA SENT:\n" + wrapper);
+        System.out.println("APilot KAFKA SENT:\n" + wrapper.toJson());
         return Response.accepted().build();
     }
 }
