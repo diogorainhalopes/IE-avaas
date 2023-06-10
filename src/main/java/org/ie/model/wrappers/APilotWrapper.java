@@ -1,35 +1,24 @@
 package org.ie.model.wrappers;
 
+import org.ie.model.APilot;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class APilotWrapper {
+    @JsonProperty("APilot")
+    private APilot apilot;
 
-    private int avid;
-
-    private int apilotid;
-
-    public int getApilotid() {
-        return apilotid;
+    public APilotWrapper(APilot apilot) {
+        this.apilot = apilot;
     }
 
-    public void setApilotid(int apilotid) {
-        this.apilotid = apilotid;
-    }
+    public APilotWrapper() {
 
-    public int getAvid() {
-        return avid;
-    }
-
-    public void setAvid(int avid) {
-        this.avid = avid;
-    }
-
-    public APilotWrapper(@JsonProperty("avid") int avid, @JsonProperty("apilotid") int apilotid) {
-        this.avid = avid;
-        this.apilotid = apilotid;
     }
 
     public String toJson() {
@@ -41,5 +30,13 @@ public class APilotWrapper {
             e.printStackTrace();
         }
         return ow.toString();
+    }
+
+    public APilot getApilot() {
+        return apilot;
+    }
+
+    public void setApilot(APilot apilot) {
+        this.apilot = apilot;
     }
 }

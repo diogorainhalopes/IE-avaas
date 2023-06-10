@@ -49,10 +49,6 @@ public class AvEvent {
 	@JsonProperty("AverageConsumptionLevel")
 	private String averageConsumptionLevel;
 
-	public AvEvent() {
-
-	}
-
 	public AvEvent(String timeStamp, String avId, String speed, String batteryLevel, String driverTirenessLevel,
 			String location, String environmentalLightning, String rainConditions, String fogConditions,
 			String tractionWheelsLevel, String trafficLight, String obstacleProximity, String pedestrianProximity,
@@ -71,17 +67,6 @@ public class AvEvent {
 		this.obstacleProximity = obstacleProximity;
 		this.pedestrianProximity = pedestrianProximity;
 		this.averageConsumptionLevel = averageConsumptionLevel;
-	}
-
-	public String toJson() {
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		try {
-			return ow.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ow.toString();
 	}
 
 	public String getTimeStamp() {
@@ -162,6 +147,53 @@ public class AvEvent {
 
 	public void setTractionWheelsLevel(String tractionWheelsLevel) {
 		this.tractionWheelsLevel = tractionWheelsLevel;
+	}
+
+	public String getTrafficLight() {
+		return trafficLight;
+	}
+
+	public void setTrafficLight(String trafficLight) {
+		this.trafficLight = trafficLight;
+	}
+
+	public String getObstacleProximity() {
+		return obstacleProximity;
+	}
+
+	public void setObstacleProximity(String obstacleProximity) {
+		this.obstacleProximity = obstacleProximity;
+	}
+
+	public String getPedestrianProximity() {
+		return pedestrianProximity;
+	}
+
+	public void setPedestrianProximity(String pedestrianProximity) {
+		this.pedestrianProximity = pedestrianProximity;
+	}
+
+	public String getAverageConsumptionLevel() {
+		return averageConsumptionLevel;
+	}
+
+	public void setAverageConsumptionLevel(String averageConsumptionLevel) {
+		this.averageConsumptionLevel = averageConsumptionLevel;
+	}
+
+	public AvEvent() {
+
+	}
+
+	public String toJson() {
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		try {
+			return ow.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ow.toString();
 	}
 
 }

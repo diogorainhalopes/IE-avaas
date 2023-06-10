@@ -29,6 +29,8 @@ ip=`curl http://169.254.169.254/latest/meta-data/public-hostname`
 
 echo "Setting up Kafka Server config..."
 sudo sed -i "s/#listeners=PLAINTEXT:\/\/:9092/listeners=PLAINTEXT:\/\/$ip:9092/g" /usr/local/kafka/config/server.properties
+# sudo sed -i "s/#listeners=PLAINTEXT:\/\/:9092/listeners=PLAINTEXT:\/\/ec2-44-202-70-152.compute-1.amazonaws.com:9092/g" /usr/local/kafka/config/server.properties
+
 sudo sed -i "s/num.partitions=1/num.partitions=5/g" /usr/local/kafka/config/server.properties
 
 # due to AWS network stablishment process, check if 90 seconds is enough for your situation

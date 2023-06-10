@@ -38,6 +38,8 @@ nb-configuration.xml
 
 # Local environment
 .env
+SPRINT1
+.terraform
 
 # Plugin directory
 /.quarkus/cli/plugins/

@@ -1,4 +1,4 @@
-package org.ie.producer;
+package org.ie.kafka.producer;
 
 import io.smallrye.reactive.messaging.kafka.Record;
 import org.eclipse.microprofile.reactive.messaging.Channel;

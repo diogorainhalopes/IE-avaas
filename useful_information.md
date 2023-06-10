@@ -11,7 +11,10 @@ change the kafka.bootstrap.servers property to point to your kafka broker
 
 To test some of the funmcionality you can use the curl commands shown in the test.sh script
 
+# Java
 
+C:\Program Files\Java\jdk-17
+C:\Program Files\Eclipse Adoptium\jdk-11.0.19.7-hotspot
 --- 
 
 # Docker workflow
@@ -24,6 +27,9 @@ sudo docker run -i --rm -p 8088:8088 diogorlopes/avaasie
 
 sudo docker restart diogorlopes/avaasie
 
+# Simulator
+
+java -jar target/AVaaSSimulator.jar --broker-list ec2-18-205-28-33.compute-1.amazonaws.com:9092 --throughput 25 --filterprefix "av-event"
 
 ---
 
@@ -37,7 +43,7 @@ Make sure to check the inbound and outbound rules for the security group.
 To create the database schema you can do it directly in the EC2 instance with the following command and script:
 
 (`sudo yum install mariadb` if you dont have mysql cli tool installed)
-mysql -h avaas-database-1.cienya3ax72e.us-east-1.rds.amazonaws.com -P 3306 -u root -p
+mysql -h database-avaas.cdqfozbwe56d.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 
 paste the mysql_script into the command line
 

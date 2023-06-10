@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS quarkus_db;
-CREATE DATABASE IF NOT EXISTS quarkus_db;
-USE quarkus_db;
+DROP DATABASE IF EXISTS quarkusdb;
+CREATE DATABASE IF NOT EXISTS quarkusdb;
+USE quarkusdb;
 CREATE TABLE manufacturer( brand VARCHAR(100)  PRIMARY KEY );
 CREATE TABLE av( id INTEGER PRIMARY KEY, brand VARCHAR(100), model VARCHAR(100) NOT NULL, FOREIGN KEY (brand) REFERENCES manufacturer(brand) );
 CREATE TABLE apilot_dev( company VARCHAR(100) PRIMARY KEY );

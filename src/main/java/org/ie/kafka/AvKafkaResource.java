@@ -1,6 +1,6 @@
 package org.ie.kafka;
 
-import org.ie.producer.AvProducer;
+import org.ie.kafka.producer.AvProducer;
 import org.ie.reactive.repo.Av;
 
 import jakarta.inject.Inject;

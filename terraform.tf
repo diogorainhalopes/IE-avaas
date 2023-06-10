@@ -9,19 +9,19 @@ terraform {
 }
 provider "aws" {
   region     = "us-east-1"
-  access_key = "ASIAXQGJ5K22BOI6DPXU"
-  secret_key = "3oNu10IciD2MG66qKDbm08oKAaLOK3awCn6TEHmq"
-  token      = "FwoGZXIvYXdzEHcaDM6tvbWm42/3bSo2TCLWAUo14pFKkVO5fDEfCPbtazBubBNwfqK1nxMrnKXkuKlPsFE9ghODMIN2meuP8jFqesK0ikVwhjpY6+f9bX0V+ycTm5+GKCs8R7Mk/lfAI9zzSNoAwRjcH4Z+ZCT6OOxY1CZRg3qzsksPHJthhgNQn6RceIqocmIDLVbIV2Qqi0afbgF+IFrWfErKK2a1wirpl6ZFKJSEKbulNITCCqDekXyc2S97Gtag61z86BGINlXSNJGLvfSo5/9K2z2F6ic/ehXClvf62JCgOV2ASkE9ZWcQ0dzhqxEoq5OjowYyLcDySmGPxdjtwBjRRngFYesn7LihyM1hy81kAzYoY+q5/9ES2iRFBv6SkLeJWQ=="
+  access_key = "ASIAQJMFMUEZN7TLXLLL"
+  secret_key = "7xq20FMQq+cACRcSH3c4rtkNGgAI6bfA7QIAprvf"
+  token      = "FwoGZXIvYXdzEF0aDO2kM1hJydjKK6G7ZiLWATHXnxzzf4RIXnOzG+S4TGiDK1Ypo+j2e90l2KyCScqTzNiozA8d605ugEzv4VbwAOezD7azKyDgy+RIUBiA96/WYT5u5MZK2yysf32m4lhydRb3k5+pWcnb1crN68nYjQDFBIdlX5doAQdDIT6x5OqaExLi+/wLtYm5SPozTd6R+fEfSqh7S5DrPESRD4g+D9j7t/1kXvip4l5EBPdPAebEezWacVBMZq68Kw5yLsEDvhnqwafAQwjNi4rJS6B1Qnotn5YAPokGzN30QY2DjhZJMY9kytMo5P2NpAYyLYYwldscCi+gTITx4bv1k8OYQoR8Y8DHIOuDa8wRAeZsTIlk0m3ANJx1O0k+OA=="
 }
-resource "aws_instance" "AVAAS" {
+resource "aws_instance" "avaas" {
   ami                         = "ami-0b5eea76982371e91"
   instance_type               = "t2.small"
   vpc_security_group_ids      = [aws_security_group.instance.id]
-  key_name                    = "AWSkey"
+  key_name                    = "s2key"
   user_data                   = file("creation.sh")
   user_data_replace_on_change = true
   tags = {
-    Name = "terraform-AVAAS"
+    Name = "terraform-avaas"
   }
 }
 
@@ -44,13 +44,13 @@ resource "aws_security_group" "instance" {
 }
 
 variable "security_group_name" {
-  description = "terraform security group name"
+  description = "Terraform Security Group"
   type        = string
-  default     = "AVAAS-security-group"
+  default     = "avaas-security-group"
 }
 
 output "address" {
-  value       = aws_instance.AVAAS.public_dns
+  value       = aws_instance.avaas.public_dns
   description = "Address of the Quarkus EC2 machine"
 }
 

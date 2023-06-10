@@ -1,7 +1,7 @@
 package org.ie.kafka;
 
+import org.ie.kafka.producer.APilotProducer;
 import org.ie.model.wrappers.APilotWrapper;
-import org.ie.producer.APilotProducer;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;

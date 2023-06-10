@@ -21,6 +21,10 @@ public class AvEventWrapper {
         this.avEvent = avEvent;
     }
 
+    public AvEventWrapper() {
+
+    }
+
     public String toJson() {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {

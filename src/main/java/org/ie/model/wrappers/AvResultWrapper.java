@@ -36,5 +36,4 @@ public class AvResultWrapper {
         return ow.toString();
     }
 
-    // Getter and setter for avResult
 }
