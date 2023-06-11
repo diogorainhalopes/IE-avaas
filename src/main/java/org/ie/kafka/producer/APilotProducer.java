@@ -30,7 +30,7 @@ import jakarta.inject.Inject;
 public class APilotProducer {
 
     // @ConfigProperty(name = "kafka.bootstrap.servers")
-    static String bootstrapServers = "ec2-44-202-70-152.compute-1.amazonaws.com:9092";
+    static String bootstrapServers = "ec2-44-211-149-217.compute-1.amazonaws.com:9092";
 
     static String topicName = "apilot";
 

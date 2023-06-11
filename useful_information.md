@@ -11,10 +11,6 @@ change the kafka.bootstrap.servers property to point to your kafka broker
 
 To test some of the funmcionality you can use the curl commands shown in the test.sh script
 
-# Java
-
-C:\Program Files\Java\jdk-17
-C:\Program Files\Eclipse Adoptium\jdk-11.0.19.7-hotspot
 --- 
 
 # Docker workflow
