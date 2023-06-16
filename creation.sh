@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Starting Terraform creation script..."
+sudo yum update -y
 echo "Seting up ZooKeeper..."
 cd
 sudo wget https://dlcdn.apache.org/zookeeper/zookeeper-3.8.0/apache-zookeeper-3.8.0-bin.tar.gz
@@ -12,7 +13,7 @@ dataDir=/var/lib/zookeeper
 clientPort=2181" > /usr/local/zookeeper/conf/zoo.cfg
 echo "Done!"
 
-echo "Seting up Java..."
+echo "Setting up Java..."
 sudo yum -y install java-1.8.0-openjdk.x86_64
 echo "Done!"
 
@@ -40,8 +41,13 @@ sudo sed -i "s/num.partitions=1/num.partitions=5/g" /usr/local/kafka/config/serv
 echo "Setting Docker..."
 sudo yum install -y docker
 sudo service docker start
-sudo docker login -u diogorlopes -p <PASSWORD>
+sudo usermod -aG docker ec2-user
 
 sudo docker pull diogorlopes/avaasie:latest
 sudo docker run -i --rm -p 8088:8088 diogorlopes/avaasie
+
+echo "Setting Camunda..."
+docker pull camunda/camunda-bpm-platform:latest
+docker run -d --name camunda -p 8080:8080 camunda/camunda-bpm-platform:latest
+
 echo "All Done!"

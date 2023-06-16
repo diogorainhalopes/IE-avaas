@@ -33,7 +33,7 @@ import jakarta.inject.Inject;
 public class AvResultProducer {
 
 	// @ConfigProperty(name = "kafka.bootstrap.servers")
-	static String bootstrapServers = "ec2-44-211-149-217.compute-1.amazonaws.com:9092";
+	static String bootstrapServers = "ec2-18-234-198-196.compute-1.amazonaws.com:9092";
 
 	static String topicName = "av-result";
 
