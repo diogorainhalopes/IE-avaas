@@ -20,9 +20,8 @@ import io.smallrye.mutiny.Uni;
 /**
  * The ManufacturerResource class represents the resource for Manufacturer.
  */
-@Path("av_manufacturer")
+@Path("manufacturer")
 public class ManufacturerResource {
-
 	@Inject
 	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
@@ -48,7 +47,7 @@ public class ManufacturerResource {
 	public Uni<Response> getSingle(@Param String brand) {
 		return Manufacturer.findById(client, brand)
 				.onItem()
-				.transform(carManufacturer -> carManufacturer != null ? Response.ok(carManufacturer)
+				.transform(manufacturer -> manufacturer != null ? Response.ok(manufacturer)
 						: Response.status(Status.NOT_FOUND))
 				.onItem().transform(ResponseBuilder::build);
 	}
@@ -60,9 +59,9 @@ public class ManufacturerResource {
 	 * @return a Uni of Response object
 	 */
 	@POST
-	public Uni<Response> create(Manufacturer Manufacturer) {
-		return Manufacturer.save(client)
-				.onItem().transform(brand -> URI.create("/av_manufacturer/" + brand))
+	public Uni<Response> create(Manufacturer manufacturer) {
+		return manufacturer.save(client)
+				.onItem().transform(brand -> URI.create("/manufacturer/" + brand))
 				.onItem().transform(uri -> Response.created(uri).build());
 	}
 

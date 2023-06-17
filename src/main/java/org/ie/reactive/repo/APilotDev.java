@@ -21,6 +21,7 @@ public class APilotDev {
     }
 
     public APilotDev(String company) {
+        super();
         this.company = company;
     }
 

@@ -20,58 +20,58 @@ import io.smallrye.mutiny.Uni;
  * The APilotDevService class represents a RESTful web service for managing
  * APilot objects.
  */
-@Path("apilot_dev/service")
+@Path("apilot_dev_service")
 public class APilotDevService {
 
-    @Inject
-    io.vertx.mutiny.mysqlclient.MySQLPool client;
+	@Inject
+	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
-    @POST
-    @Path("/enter/apilot")
-    public Uni<Response> create(APilot apilot) {
+	@POST
+	@Path("/enter")
+	public Uni<Response> create(APilot apilot) {
 
-        return isValid(apilot)
-                ? apilot.save(client)
-                        .onItem()
-                        .transform(id -> URI.create("/apilot_dev/service/enter/apilot/" + id))
-                        .onItem().transform(uri -> Response.created(uri).build())
-                        .onFailure()
-                        .recoverWithUni(Uni.createFrom()
-                                .item(() -> Response.status(Response.Status.ACCEPTED)
-                                        .entity("ERROR INVALID APILOT\n")
-                                        .build()))
-                : Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
-                        .entity("ERROR ADDING APILOT\n"
-                                + "RULES:\n"
-                                + " -> AV id > 0\n"
-                                + " -> Company length > 0 and 100 characters\n"
-                                + " -> Model length > 0 and 100 characters\n")
-                        .build());
-    }
+		return isValid(apilot)
+				? apilot.save(client)
+						.onItem()
+						.transform(id -> URI.create("/apilot_dev_service/apilot/" + id))
+						.onItem().transform(uri -> Response.created(uri).build())
+						.onFailure()
+						.recoverWithUni(Uni.createFrom()
+								.item(() -> Response.status(Response.Status.ACCEPTED)
+										.entity("ERROR INVALID APILOT\n")
+										.build()))
+				: Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
+						.entity("ERROR ADDING APILOT\n"
+								+ "RULES:\n"
+								+ " -> AV id > 0\n"
+								+ " -> Company length > 0 and 100 characters\n"
+								+ " -> Model length > 0 and 100 characters\n")
+						.build());
+	}
 
-    private boolean isValid(APilot apilot) {
-        return apilot.getId() > 0 && apilot.getCompany().length() > 0 && apilot.getCompany().length() <= 100
-                && apilot.getModel().length() > 0 && apilot.getModel().length() <= 100;
-    }
+	private boolean isValid(APilot apilot) {
+		return apilot.getId() > 0 && apilot.getCompany().length() > 0 && apilot.getCompany().length() <= 100
+				&& apilot.getModel().length() > 0 && apilot.getModel().length() <= 100;
+	}
 
-    @DELETE
-    @Path("remove/apilot/{id}")
-    public Uni<Response> delete(@Param Integer id) {
-        return Av.delete(client, id)
-                .onItem()
-                .transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT
-                        : Status.NOT_FOUND)
-                .onItem().transform(status -> Response.status(status).build());
-    }
+	@DELETE
+	@Path("remove/{id}")
+	public Uni<Response> delete(@Param Integer id) {
+		return Av.delete(client, id)
+				.onItem()
+				.transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT
+						: Status.NOT_FOUND)
+				.onItem().transform(status -> Response.status(status).build());
+	}
 
-    @PUT
-    @Path("/update/apilot/model/{id}/{model}")
-    public Uni<Response> updateModel(@Param Integer id, @Param String model) {
-        return Av.updateModel(client, id, model)
-                .onItem()
-                .transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT
-                        : Status.NOT_FOUND)
-                .onItem().transform(status -> Response.status(status).build());
-    }
+	@PUT
+	@Path("/update/{id}/{model}")
+	public Uni<Response> updateModel(@Param Integer id, @Param String model) {
+		return Av.updateModel(client, id, model)
+				.onItem()
+				.transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT
+						: Status.NOT_FOUND)
+				.onItem().transform(status -> Response.status(status).build());
+	}
 
 }

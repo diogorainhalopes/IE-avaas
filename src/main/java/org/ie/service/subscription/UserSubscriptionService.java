@@ -25,12 +25,12 @@ public class UserSubscriptionService {
 	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
 	@POST
-	@Path("/user")
+	@Path("/")
 	public Uni<Response> create(User user) {
 
 		return isValid(user)
 				? user.save(client)
-						.onItem().transform(id -> URI.create("/subscription/user/" + id))
+						.onItem().transform(id -> URI.create("/subscription/" + id))
 						.onItem().transform(uri -> Response.created(uri).build())
 						.onFailure()
 						.recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)

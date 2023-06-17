@@ -1,5 +1,7 @@
 package org.ie.reactive.repo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.mysqlclient.MySQLPool;
@@ -12,12 +14,22 @@ import io.vertx.mutiny.sqlclient.Tuple;
  */
 public class Manufacturer {
 
+	@JsonProperty("brand")
 	private String brand;
 
 	public Manufacturer() {
 	}
 
 	public Manufacturer(String brand) {
+		super();
+		this.brand = brand;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
 		this.brand = brand;
 	}
 

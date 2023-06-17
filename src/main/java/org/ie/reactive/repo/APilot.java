@@ -37,6 +37,7 @@ public class APilot {
     }
 
     public APilot(int id, String company, String model) {
+        super();
         this.id = id;
         this.company = company;
         this.model = model;

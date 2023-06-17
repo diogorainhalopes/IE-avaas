@@ -2,10 +2,24 @@
 # Params
 
 change the quarkus.datasource properties to point to your database
-
 change the quarkus.http.port property to the port you want to use (dont forget to change the dockerfile as well)
 
 change the kafka.bootstrap.servers property to point to your kafka broker
+change the kafka.bootstrap.servers property on both AvResultProducer and APilotProducer
+
+At /usr/local/kafka/config/server.properties of each EC2 instance, change the following properties:
+```
+#zookeeper connectivity (one per EC2 VM of this cluster)
+zookeeper.connect=ec2-54-90-57-82.compute-1.amazonaws.com:2181,ec2-54-173-171-63.compute-
+1.amazonaws.com:2181,ec2-54-236-47-54.compute-1.amazonaws.com:2181
+```
+
+And at /usr/local/zookeeper/conf/zoo.cfg
+```
+server.1=ec2-54-90-57-82.compute-1.amazonaws.com:2888:3888
+server.2=ec2-54-173-171-63.compute-1.amazonaws.com:2888:3888
+server.3=ec2-54-236-47-54.compute-1.amazonaws.com:2888:3888
+```
 
 # Testing
 

@@ -19,19 +19,19 @@ import io.smallrye.mutiny.Uni;
  * The ManufacturerService class represents a RESTful web service for
  * managing Av objects.
  */
-@Path("manufacturer/service")
+@Path("manufacturer_service")
 public class ManufacturerService {
 
 	@Inject
 	io.vertx.mutiny.mysqlclient.MySQLPool client;
 
 	@POST
-	@Path("/enter/av")
+	@Path("/enter")
 	public Uni<Response> create(Av av) {
 
 		return isAvValid(av)
 				? av.save(client)
-						.onItem().transform(id -> URI.create("/manufacturer/service/enter/av/" + id))
+						.onItem().transform(id -> URI.create("/manufacturer_service/enter/" + id))
 						.onItem().transform(uri -> Response.created(uri).build())
 						.onFailure()
 						.recoverWithUni(Uni.createFrom().item(() -> Response.status(Response.Status.ACCEPTED)
@@ -53,7 +53,7 @@ public class ManufacturerService {
 	}
 
 	@DELETE
-	@Path("remove/av/{id}")
+	@Path("remove/{id}")
 	public Uni<Response> delete(@Param Integer id) {
 		return Av.delete(client, id)
 				.onItem().transform(deleted -> Boolean.TRUE.equals(deleted) ? Status.NO_CONTENT : Status.NOT_FOUND)
@@ -61,7 +61,7 @@ public class ManufacturerService {
 	}
 
 	@PUT
-	@Path("/update/av/model/{id}/{model}")
+	@Path("/update/{id}/{model}")
 	public Uni<Response> updateModel(@Param Integer id, @Param String model) {
 		return Av.updateModel(client, id, model)
 				.onItem().transform(updated -> Boolean.TRUE.equals(updated) ? Status.NO_CONTENT : Status.NOT_FOUND)
