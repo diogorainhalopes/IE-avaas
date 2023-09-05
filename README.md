@@ -1,5 +1,8 @@
 # avaas
 
+Cloud based system to simulate `Autonomous Vehicle as a Service`
+(AWS RDS, EC2, Lambda, Java, Quarkus, Kafka, Kong)
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
